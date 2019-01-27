@@ -34,3 +34,7 @@
 div.tasklist-block {
   float: left;
 }
+
+tr.overdue {
+  font-weight: bold;
+}

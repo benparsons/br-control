@@ -97,8 +97,9 @@ class DailyTaskList extends Component {
 
 class TaskRow extends Component {
   render() {
+    const taskClass = moment().isAfter(this.props.due) ? "overdue" : "";
     return (
-      <tr onClick={() => {doOpen(this.props.name)}}>
+      <tr onClick={() => {doOpen(this.props.name)}} className={taskClass}>
         <td>{this.props.due}</td>
         <td>{this.props.title}</td>
         <td>{this.props.status}</td>
