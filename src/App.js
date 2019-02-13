@@ -172,7 +172,16 @@ class TagsList extends Component {
   }
 
   render() {
-    return <div className="tasklist-block">{JSON.stringify(this.state.tags)}</div>;
+
+    var tags = [];
+    console.log(this.state.tags);
+    Object.keys(this.state.tags).forEach(name =>{
+      tags.push(<ProjectBlock key={name} name={name} tasks={this.state.tags[name]} />);
+    });
+    
+    return <div className="tasklist-block">{tags}</div>
+    
+    //return <div className="tasklist-block">{JSON.stringify(this.state.tags)}</div>;
   }
 }
 class App extends Component {
