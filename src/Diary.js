@@ -32,7 +32,7 @@ class DiaryList extends Component {
               <DiaryEntry  key={entry.fm.date}
                 date={entry.fm.date}
                 title={entry.title}
-                raw={raw}
+                html={entry.html}
                 />
             );
           });
@@ -41,13 +41,13 @@ class DiaryList extends Component {
         );
     }
 }
-
+  
 class DiaryEntry extends Component {
     render() {
         return (
           <div>
             <h2>{this.props.title}</h2>
-            <pre>{this.props.raw.trim()}</pre>
+            <div dangerouslySetInnerHTML={{__html: this.props.html}}></div>
           </div>
         );
       }
