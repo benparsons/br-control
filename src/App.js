@@ -7,7 +7,6 @@ function doOpen(name) {
   var url = `http://localhost:1428/open/${name}`;
   axios.get(url)
     .then(res => {
-      
       console.log(res);
     });
 }

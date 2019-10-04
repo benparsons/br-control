@@ -1,4 +1,4 @@
 .leftDiv {
     float: left;
-    width: 50%;
+    max-width: 50%;
 }

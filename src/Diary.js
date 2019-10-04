@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import './Diary.css';
+import Entry from './Entry.js';
 
 class DiaryList extends Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class DiaryList extends Component {
     }
 
     componentDidMount() {
-      var url = `http://localhost:1428/diary/2019-09-01/2019-09-30`;
+      var url = `http://localhost:1428/diary/2010-01-01/2019-09-30`;
       axios.get(url)
         .then(res => {
           
@@ -31,12 +32,13 @@ class DiaryList extends Component {
             console.log(entry);
             console.log(entry.missing);
             return (
-              <DiaryEntry  key={entry.fm.date}
+              <Entry  key={entry.fm.date}
                 date={entry.fm.date}
                 title={entry.title}
                 html={entry.html}
                 missing={entry.missing}
                 fm={entry.fm}
+                name={entry.name}
                 />
             );
           });
@@ -44,25 +46,6 @@ class DiaryList extends Component {
             <div>{entries}</div>
         );
     }
-}
-  
-class DiaryEntry extends Component {
-    render() {
-        return (
-          <div>
-            <div className="leftDiv">
-              <div dangerouslySetInnerHTML={{__html: this.props.html}}></div>
-            </div>
-            <div className="leftDiv">
-              <pre>{JSON.stringify(this.props.missing)}</pre>
-              <hr />
-              <pre>{JSON.stringify(this.props.fm, null, 2)}</pre>
-            </div>
-            <br clear="all"/>
-            <hr />
-          </div>
-        );
-      }
 }
 
 class Diary extends Component {
