@@ -17,7 +17,7 @@ class Entry extends Component {
                 <div dangerouslySetInnerHTML={{__html: this.props.html}}></div>
             </div>
             <div className="leftDiv">
-                <pre>{JSON.stringify(this.props.missing)}</pre>
+                <pre>{JSON.stringify(this.props.missing, null, 2)}</pre>
                 <hr />
                 <pre>{JSON.stringify(this.props.fm, null, 2)}</pre>
                 <hr />

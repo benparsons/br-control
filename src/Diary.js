@@ -3,6 +3,8 @@ import axios from 'axios';
 import moment from 'moment';
 import './Diary.css';
 import Entry from './Entry.js';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 class DiaryList extends Component {
     constructor(props) {
@@ -14,11 +16,19 @@ class DiaryList extends Component {
     }
 
     componentDidMount() {
-      var url = `http://localhost:1428/diary/2010-01-01/2019-09-30`;
+      this.fetchEntries();
+    }
+    componentDidUpdate(prevProps) {
+      if (prevProps.startDate !== this.props.startDate ||
+        prevProps.endDate !== this.props.endDate) {
+          this.fetchEntries();
+        }
+    }
+
+    fetchEntries() {
+      var url = `http://localhost:1428/diary/${this.props.startDate}/${this.props.endDate}`;
       axios.get(url)
         .then(res => {
-          
-          console.log(res.data);
           this.setState({
             diaryItems: res.data
           });
@@ -26,11 +36,8 @@ class DiaryList extends Component {
     }
 
     render() {
-        console.log(this.state.diaryItems);
         const entries = this.state.diaryItems.map((entry, index) => {
             var raw = entry.raw.replace(/---[\s\S]*---/m, '');
-            console.log(entry);
-            console.log(entry.missing);
             return (
               <Entry  key={entry.fm.date}
                 date={entry.fm.date}
@@ -49,11 +56,51 @@ class DiaryList extends Component {
 }
 
 class Diary extends Component {
+  state = {
+    startDate: new Date(),
+    endDate: new Date()
+  };
+
+  changeStartDate = date => {
+    this.setState({
+      startDate: date
+    });
+    console.log(this.state.startDate);
+  };
+
+  changeEndDate = date => {
+    this.setState({
+      startDate: date
+    });
+  };
+
+  componentDidMount() {
+    this.setState({
+      startDate: new Date(2019, 0, 1),
+      endDate: new Date(2019, 11, 31)
+    });
+  }
+
   render() {
     return (
         <div>
             <h1>Diary</h1>
-            <DiaryList />
+            <DatePicker
+              selected={this.state.startDate}
+              onChange={this.changeStartDate}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="Start Date"
+            />
+            <DatePicker
+              selected={this.state.endDate}
+              onChange={this.changeEndDate}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="End Date"
+            />
+            <DiaryList
+              startDate={this.state.startDate.toISOString().substr(0, 10)}
+              endDate={this.state.endDate.toISOString().substr(0, 10)}
+              />
         </div>);
   }
 }
