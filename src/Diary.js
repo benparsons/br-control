@@ -70,7 +70,7 @@ class Diary extends Component {
 
   changeEndDate = date => {
     this.setState({
-      startDate: date
+      endDate: date
     });
   };
 
