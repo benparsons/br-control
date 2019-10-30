@@ -20,7 +20,7 @@ class TaskList extends Component {
     };
   }
   componentDidMount() {
-    var url = `http://localhost:1428/tasks/${this.props.count}`;
+    var url = `http://localhost:1428/tasks/${this.props.statuses}/${this.props.datemode}/${this.props.count}`;
     axios.get(url)
       .then(res => {
         
@@ -189,7 +189,8 @@ class App extends Component {
     return (
       <div>
         <DailyTaskList  />
-        <TaskList count="60" />
+        <TaskList statuses="active" datemode="undated" count="60" />
+        <TaskList statuses="active" datemode="due" count="60" />
         <ProjectsList />
         <TagsList />
       </div>
