@@ -41,14 +41,12 @@ class TaskList extends Component {
           due={due}
           title={task.title}
           status={task.fm.task.status}
+          tags={task.fm.tags}
           />
       );
     });
     return (
-      <div className="tasklist-block">
-        <h2>Tasks</h2>
-        <table><tbody>{lines}</tbody></table>
-      </div>
+      <table><tbody>{lines}</tbody></table>
     )
   }
 }
@@ -102,6 +100,7 @@ class TaskRow extends Component {
         <td>{this.props.due}</td>
         <td>{this.props.title}</td>
         <td>{this.props.status}</td>
+        <td>{JSON.stringify(this.props.tags)}</td>
       </tr>
     );
   }
@@ -189,8 +188,11 @@ class App extends Component {
     return (
       <div>
         <DailyTaskList  />
-        <TaskList statuses="active" datemode="undated" count="60" />
-        <TaskList statuses="active" datemode="due" count="60" />
+        <div className="tasklist-block">
+          <h2>Tasks</h2>
+          <TaskList statuses="active,dormant" datemode="due" count="60" />
+          <TaskList statuses="active" datemode="undated" count="60" />
+        </div>
         <ProjectsList />
         <TagsList />
       </div>
