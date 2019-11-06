@@ -192,6 +192,9 @@ class App extends Component {
           <h2>Tasks</h2>
           <TaskList statuses="active,dormant" datemode="due" count="60" />
           <TaskList statuses="active" datemode="undated" count="60" />
+          <TaskList statuses="active,dormant" datemode="future" count="60" />
+          <TaskList statuses="dormant" datemode="undated" count="60" />
+          <TaskList statuses="someday" datemode="all" count="60" />
         </div>
         <ProjectsList />
         <TagsList />
