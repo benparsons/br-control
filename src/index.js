@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import Diary from './Diary';
 import EntryView from './EntryView';
+import TagsList from './TagsList';
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -12,6 +13,7 @@ const routing = (
       <div>
         <Route exact path="/" component={App} />
         <Route path="/diary" component={Diary} />
+        <Route path="/tags" component={TagsList} />
         <Route path="/*.html" component={EntryView} />
       </div>
     </Router>

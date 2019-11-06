@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import moment from 'moment';
+import TagsList from './TagsList';
+import { TaskRow } from './TaskRow';
+import { ProjectBlock } from './ProjectBlock';
 
-function doOpen(name) {
+export function doOpen(name) {
   var url = `http://localhost:1428/open/${name}`;
   axios.get(url)
     .then(res => {
@@ -92,36 +95,6 @@ class DailyTaskList extends Component {
   }
 }
 
-class TaskRow extends Component {
-  render() {
-    const taskClass = moment().isAfter(this.props.due) ? "overdue" : "";
-    return (
-      <tr onClick={() => {doOpen(this.props.name)}} className={taskClass}>
-        <td>{this.props.due}</td>
-        <td>{this.props.title}</td>
-        <td>{this.props.status}</td>
-        <td>{JSON.stringify(this.props.tags)}</td>
-      </tr>
-    );
-  }
-}
-
-class ProjectBlock extends Component {
-
-  render() {
-    var tasks = [];
-    this.props.tasks.forEach(task => {
-      tasks.push(<TaskRow key={task.name} 
-        name={task.name} 
-        title={task.title} status={task.status} />);
-    });
-    return <div>
-      <h3>{this.props.name}</h3>
-      <table><tbody>{tasks}</tbody></table>
-    </div>;
-  }
-}
-
 class ProjectsList extends Component {
   constructor(props) {
     super(props);
@@ -150,38 +123,7 @@ class ProjectsList extends Component {
   }
 }
 
-class TagsList extends Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      tags: {}
-    };
-  }
-  componentDidMount() {
-    var url = `http://localhost:1428/tags/`;
-    axios.get(url)
-    .then(res => {
-      
-      this.setState({
-        tags: res.data
-      });
-    });
-  }
 
-  render() {
-
-    var tags = [];
-    console.log(this.state.tags);
-    Object.keys(this.state.tags).forEach(name =>{
-      tags.push(<ProjectBlock key={name} name={name} tasks={this.state.tags[name]} />);
-    });
-    
-    return <div className="tasklist-block">{tags}</div>
-    
-    //return <div className="tasklist-block">{JSON.stringify(this.state.tags)}</div>;
-  }
-}
 class App extends Component {
 
   render() {
@@ -197,7 +139,6 @@ class App extends Component {
           <TaskList statuses="someday" datemode="all" count="60" />
         </div>
         <ProjectsList />
-        <TagsList />
       </div>
     );
   }
