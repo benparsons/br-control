@@ -161,6 +161,9 @@ class App extends Component {
         <DailyTaskList />
         <div className="tasklist-block">
           <h2>Tasks</h2>
+          <button onClick={() => {
+            this.setState({ filterTag: "" })
+          }}>Clear Tag Filter</button>
           <div>{tagButtons}</div>
           <TaskList addTag={(tag) => this.addTag(tag)} filterTag={this.state.filterTag} statuses="active,dormant" datemode="due" count="60" />
           <TaskList addTag={(tag) => this.addTag(tag)} filterTag={this.state.filterTag} statuses="active" datemode="undated" count="60" />
