@@ -32,14 +32,13 @@ class TaskList extends Component {
         this.setState({
           tasks: res.data
         });
-        if (this.props.addTag) {
-          res.data.forEach(task => {
-            task.fm.tags.forEach(tag => {
-              this.props.addTag(tag);
-            })
-          })
-          
-        }
+
+        res.data.forEach(task => {
+          if (!task.fm.tags) return;
+          task.fm.tags.forEach(tag => {
+            this.props.addTag(tag);
+          });
+        });
       });
   }
   render() {
@@ -162,10 +161,10 @@ class App extends Component {
           <h2>Tasks</h2>
           <div>{tagButtons}</div>
           <TaskList addTag={(tag) => this.addTag(tag)} statuses="active,dormant" datemode="due" count="60" />
-          <TaskList statuses="active" datemode="undated" count="60" />
-          <TaskList statuses="active,dormant" datemode="future" count="60" />
-          <TaskList statuses="dormant" datemode="undated" count="60" />
-          <TaskList statuses="someday" datemode="all" count="60" />
+          <TaskList addTag={(tag) => this.addTag(tag)}  statuses="active" datemode="undated" count="60" />
+          <TaskList addTag={(tag) => this.addTag(tag)}  statuses="active,dormant" datemode="future" count="60" />
+          <TaskList addTag={(tag) => this.addTag(tag)}  statuses="dormant" datemode="undated" count="60" />
+          <TaskList addTag={(tag) => this.addTag(tag)}  statuses="someday" datemode="all" count="60" />
         </div>
         <ProjectsList />
       </div>
