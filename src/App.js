@@ -18,7 +18,7 @@ export function doOpen(name) {
 class TaskList extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       tasks: []
     };
@@ -27,8 +27,6 @@ class TaskList extends Component {
     var url = `http://localhost:1428/tasks/${this.props.statuses}/${this.props.datemode}/${this.props.count}`;
     axios.get(url)
       .then(res => {
-        
-        console.log(res.data);
         this.setState({
           tasks: res.data
         });
@@ -43,18 +41,20 @@ class TaskList extends Component {
   }
   render() {
     const lines = this.state.tasks.map((task, index) => {
-      var due = task.fm.task.due 
-        ? moment(task.fm.task.due).format('YYYY-MM-DD') 
+      var due = task.fm.task.due
+        ? moment(task.fm.task.due).format('YYYY-MM-DD')
         : "";
-            
+
       return (
-        <TaskRow  key={task.name}
+        <TaskRow
+          key={task.name}
           name={task.name}
           due={due}
           title={task.title}
           status={task.fm.task.status}
           tags={task.fm.tags}
-          />
+          filterTag={this.props.filterTag}
+        />
       );
     });
     return (
@@ -66,7 +66,7 @@ class TaskList extends Component {
 class DailyTaskList extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       tasks: []
     };
@@ -75,8 +75,6 @@ class DailyTaskList extends Component {
     var url = `http://localhost:1428/daily-tasks`;
     axios.get(url)
       .then(res => {
-        
-        console.log(res.data);
         this.setState({
           tasks: res.data
         });
@@ -84,15 +82,15 @@ class DailyTaskList extends Component {
   }
   render() {
     const lines = this.state.tasks.map((task, index) => {
-      var due = task.fm.task.due 
-        ? moment(task.fm.task.due).format('YYYY-MM-DD') 
+      var due = task.fm.task.due
+        ? moment(task.fm.task.due).format('YYYY-MM-DD')
         : "";
       return (
-        <TaskRow  key={task.name}
+        <TaskRow key={task.name}
           name={task.name}
           due={due}
           title={task.title}
-          />
+        />
       );
     });
     return (
@@ -107,7 +105,7 @@ class DailyTaskList extends Component {
 class ProjectsList extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       projects: {}
     };
@@ -115,17 +113,16 @@ class ProjectsList extends Component {
   componentDidMount() {
     var url = `http://localhost:1428/projects/`;
     axios.get(url)
-    .then(res => {
-      
-      this.setState({
-        projects: res.data
+      .then(res => {
+
+        this.setState({
+          projects: res.data
+        });
       });
-    });
   }
   render() {
     var projects = [];
-    console.log(this.state.projects);
-    Object.keys(this.state.projects).forEach(name =>{
+    Object.keys(this.state.projects).forEach(name => {
       projects.push(<ProjectBlock key={name} name={name} tasks={this.state.projects[name]} />);
     });
     return <div className="tasklist-block">{projects}</div>
@@ -136,15 +133,16 @@ class ProjectsList extends Component {
 class App extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
-      tags: []
+      tags: [],
+      filterTag: ""
     };
   }
 
   addTag(tag) {
     var newTags = this.state.tags;
-    newTags.push(tag)
+    if (!newTags.includes(tag)) newTags.push(tag);
     this.setState({
       tags: newTags
     })
@@ -152,19 +150,23 @@ class App extends Component {
 
   render() {
     const tagButtons = this.state.tags.map((tag) => {
-      return (<button>{tag}</button>);
+
+      return (<button key={tag}
+        onClick={() => {
+          this.setState({ filterTag: tag })
+        }}>{tag}</button>);
     });
     return (
       <div>
-        <DailyTaskList  />
+        <DailyTaskList />
         <div className="tasklist-block">
           <h2>Tasks</h2>
           <div>{tagButtons}</div>
-          <TaskList addTag={(tag) => this.addTag(tag)} statuses="active,dormant" datemode="due" count="60" />
-          <TaskList addTag={(tag) => this.addTag(tag)}  statuses="active" datemode="undated" count="60" />
-          <TaskList addTag={(tag) => this.addTag(tag)}  statuses="active,dormant" datemode="future" count="60" />
-          <TaskList addTag={(tag) => this.addTag(tag)}  statuses="dormant" datemode="undated" count="60" />
-          <TaskList addTag={(tag) => this.addTag(tag)}  statuses="someday" datemode="all" count="60" />
+          <TaskList addTag={(tag) => this.addTag(tag)} filterTag={this.state.filterTag} statuses="active,dormant" datemode="due" count="60" />
+          <TaskList addTag={(tag) => this.addTag(tag)} filterTag={this.state.filterTag} statuses="active" datemode="undated" count="60" />
+          <TaskList addTag={(tag) => this.addTag(tag)} filterTag={this.state.filterTag} statuses="active,dormant" datemode="future" count="60" />
+          <TaskList addTag={(tag) => this.addTag(tag)} filterTag={this.state.filterTag} statuses="dormant" datemode="undated" count="60" />
+          <TaskList addTag={(tag) => this.addTag(tag)} filterTag={this.state.filterTag} statuses="someday" datemode="all" count="60" />
         </div>
         <ProjectsList />
       </div>
