@@ -6,6 +6,7 @@ import TagsList from './TagsList';
 import { TaskRow } from './TaskRow';
 import { ProjectBlock } from './ProjectBlock';
 
+
 export function doOpen(name) {
   var url = `http://localhost:1428/open/${name}`;
   axios.get(url)
@@ -31,6 +32,14 @@ class TaskList extends Component {
         this.setState({
           tasks: res.data
         });
+        if (this.props.addTag) {
+          res.data.forEach(task => {
+            task.fm.tags.forEach(tag => {
+              this.props.addTag(tag);
+            })
+          })
+          
+        }
       });
   }
   render() {
@@ -38,6 +47,7 @@ class TaskList extends Component {
       var due = task.fm.task.due 
         ? moment(task.fm.task.due).format('YYYY-MM-DD') 
         : "";
+            
       return (
         <TaskRow  key={task.name}
           name={task.name}
@@ -125,14 +135,33 @@ class ProjectsList extends Component {
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      tags: []
+    };
+  }
+
+  addTag(tag) {
+    var newTags = this.state.tags;
+    newTags.push(tag)
+    this.setState({
+      tags: newTags
+    })
+  }
 
   render() {
+    const tagButtons = this.state.tags.map((tag) => {
+      return (<button>{tag}</button>);
+    });
     return (
       <div>
         <DailyTaskList  />
         <div className="tasklist-block">
           <h2>Tasks</h2>
-          <TaskList statuses="active,dormant" datemode="due" count="60" />
+          <div>{tagButtons}</div>
+          <TaskList addTag={(tag) => this.addTag(tag)} statuses="active,dormant" datemode="due" count="60" />
           <TaskList statuses="active" datemode="undated" count="60" />
           <TaskList statuses="active,dormant" datemode="future" count="60" />
           <TaskList statuses="dormant" datemode="undated" count="60" />
