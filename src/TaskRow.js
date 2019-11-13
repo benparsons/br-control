@@ -7,11 +7,11 @@ export class TaskRow extends Component {
     return (<>
       {!this.props.tags || this.props.filterTag === "" || this.props.tags.includes(this.props.filterTag)?
       <tr className={taskClass}>
-      <td>{this.props.due}</td>
-      <td>{this.props.title}</td>
-      <td>{this.props.status}</td>
-      <td>{JSON.stringify(this.props.tags, null, 1)}</td>
-      <td><button onClick={() => { doOpen(this.props.name); }}>Open</button></td>
+      <td style={{width:"10%"}}>{this.props.due}</td>
+      <td style={{width:"35%"}} onClick={() => { doOpen(this.props.name); }}>{this.props.title}</td>
+      <td style={{width:"10%"}}>{this.props.status}</td>
+      <td style={{width:"35%"}}>{JSON.stringify(this.props.tags, null, 1)}</td>
+      <td style={{width:"10%"}}><button onClick={() => { doOpen(this.props.name); }}>Open</button></td>
     </tr>:null}</>);
   }
 }

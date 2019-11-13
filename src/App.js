@@ -58,7 +58,7 @@ class TaskList extends Component {
       );
     });
     return (
-      <table><tbody>{lines}</tbody></table>
+      <table style={{width: "100%"}}><tbody>{lines}</tbody></table>
     )
   }
 }
