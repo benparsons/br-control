@@ -37,15 +37,8 @@ class DailyTaskList extends Component {
   }
   render() {
     const lines = this.state.tasks.map((task, index) => {
-      var due = task.fm.task.due
-        ? moment(task.fm.task.due).format('YYYY-MM-DD')
-        : "";
       return (
-        <TaskRow key={task.name}
-          name={task.name}
-          due={due}
-          title={task.title}
-        />
+        <tr key={task.name}>{task.title}</tr>
       );
     });
     return (
