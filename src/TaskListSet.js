@@ -33,11 +33,14 @@ class TaskListSet extends Component {
             this.setState({ filterTag: "" })
           }}>Clear Tag Filter</button>
           <div>{tagButtons}</div>
-          <TaskList addTag={(tag) => this.addTag(tag)} filterTag={this.state.filterTag} statuses="active,dormant" datemode="due" count="60" />
-          <TaskList addTag={(tag) => this.addTag(tag)} filterTag={this.state.filterTag} statuses="active" datemode="undated" count="60" />
-          <TaskList addTag={(tag) => this.addTag(tag)} filterTag={this.state.filterTag} statuses="active,dormant" datemode="future" count="60" />
-          <TaskList addTag={(tag) => this.addTag(tag)} filterTag={this.state.filterTag} statuses="dormant" datemode="undated" count="60" />
-          <TaskList addTag={(tag) => this.addTag(tag)} filterTag={this.state.filterTag} statuses="someday" datemode="all" count="60" />
+          {this.props.taskLists.map((taskList) => {
+            return(<TaskList
+              addTag={(tag) => this.addTag(tag)}
+              filterTag={this.state.filterTag}
+              statuses={taskList.statuses}
+              datemode={taskList.datemode}
+              count={taskList.count}  />)
+          })}
         </div>
         )
     }

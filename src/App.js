@@ -88,10 +88,13 @@ class ProjectsList extends Component {
 class App extends Component {
 
   render() {
+    const taskLists = [];
+    taskLists.push({statuses:"active,dormant", datemode:"due", count:"60"});
+    taskLists.push({statuses:"active", datemode:"undated", count:"60"});
     return (
       <div>
         <DailyTaskList />
-        <TaskListSet />
+        <TaskListSet taskLists={taskLists} />
         <ProjectsList />
       </div>
     );
