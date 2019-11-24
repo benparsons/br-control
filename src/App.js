@@ -93,6 +93,7 @@ class App extends Component {
           <div style={{"float":"left"}}><SingleTagPanel tag="mantra"/></div>
           <div style={{"float":"left"}}><SingleTagPanel tag="work-focus"/></div>
           <div style={{"float":"left"}}><SingleTagPanel tag="before-2021-travel"/></div>
+          <div style={{"float":"left"}}><SingleTagPanel tag="tech-skills-for-remote-work"/></div>
         </div>
         
         <TaskListSet taskLists={taskLists} />
