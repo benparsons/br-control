@@ -6,6 +6,8 @@ import TagsList from './TagsList';
 import { TaskRow } from './TaskRow';
 import { ProjectBlock } from './ProjectBlock';
 import TaskListSet from './TaskListSet';
+import leftPad from 'left-pad';
+import SingleTagPanel from './SingleTagPanel';
 
 
 export function doOpen(name) {
@@ -86,7 +88,13 @@ class App extends Component {
     taskLists.push({statuses:"active", datemode:"undated", count:"60"});
     return (
       <div>
-        <DailyTaskList />
+        <div>
+          <div style={{"float":"left"}}><DailyTaskList /></div>
+          <div style={{"float":"left"}}><SingleTagPanel tag="mantra"/></div>
+          <div style={{"float":"left"}}><SingleTagPanel tag="work-focus"/></div>
+          <div style={{"float":"left"}}><SingleTagPanel tag="before-2021-travel"/></div>
+        </div>
+        
         <TaskListSet taskLists={taskLists} />
         <ProjectsList />
       </div>
