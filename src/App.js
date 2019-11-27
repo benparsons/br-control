@@ -86,14 +86,17 @@ class App extends Component {
     const taskLists = [];
     taskLists.push({statuses:"active,dormant", datemode:"due", count:"60"});
     taskLists.push({statuses:"active", datemode:"undated", count:"60"});
+    const tagPanels = ["mantra", "work-focus", "before-2021-travel",
+      "tech-skills-for-remote-work",  "mushroom-app", "xmas-presents-2019"];
     return (
       <div>
         <div>
           <div style={{"float":"left"}}><DailyTaskList /></div>
-          <div style={{"float":"left"}}><SingleTagPanel tag="mantra"/></div>
-          <div style={{"float":"left"}}><SingleTagPanel tag="work-focus"/></div>
-          <div style={{"float":"left"}}><SingleTagPanel tag="before-2021-travel"/></div>
-          <div style={{"float":"left"}}><SingleTagPanel tag="tech-skills-for-remote-work"/></div>
+          {tagPanels.map(tag => {
+            return(
+              <div style={{"float":"left"}}><SingleTagPanel tag={tag} /></div>
+            )
+          })}
         </div>
         
         <TaskListSet taskLists={taskLists} />
