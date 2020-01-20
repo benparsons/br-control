@@ -87,7 +87,7 @@ class App extends Component {
     taskLists.push({statuses:"active,dormant", datemode:"due", count:"60"});
     taskLists.push({statuses:"active", datemode:"undated", count:"60"});
     const tagPanels = ["mantra", "work-focus", "before-2021-travel",
-      "tech-skills-for-remote-work",  "mushroom-app"];
+      "tech-skills-for-remote-work",  "mushroom-app", "2020-goals", "flat-7-revival"];
     return (
       <div>
         <div>
