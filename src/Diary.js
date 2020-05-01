@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import moment from 'moment';
 import './Diary.css';
 import Entry from './Entry.js';
 import DatePicker from "react-datepicker";
@@ -37,7 +36,7 @@ class DiaryList extends Component {
 
     render() {
         const entries = this.state.diaryItems.map((entry, index) => {
-            var raw = entry.raw.replace(/---[\s\S]*---/m, '');
+            //var raw = entry.raw.replace(/---[\s\S]*---/m, '');
             return (
               <Entry  key={entry.fm.date}
                 date={entry.fm.date}

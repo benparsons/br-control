@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
-import moment from 'moment';
-import TagsList from './TagsList';
-import { TaskRow } from './TaskRow';
 import { ProjectBlock } from './ProjectBlock';
 import TaskListSet from './TaskListSet';
-import leftPad from 'left-pad';
 import SingleTagPanel from './SingleTagPanel';
 
 
