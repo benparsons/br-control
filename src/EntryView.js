@@ -13,7 +13,7 @@ class EntryView extends Component {
 
   componentDidMount() {
 
-    const regex = /\/(.*).html/;
+    const regex = /\/entry\/(.*)$/;
     const str = this.props.location.pathname;
     const out = str.match(regex);
 
@@ -35,6 +35,7 @@ class EntryView extends Component {
               html={this.state.entry.html}
               missing={this.state.entry.missing}
               fm={this.state.entry.fm}
+              raw={this.state.entry.raw}
               />
         </div>);
   }
