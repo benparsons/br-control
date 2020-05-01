@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import { Route, BrowserRouter as Router } from 'react-router-dom'
 import './index.css';
 import App from './App';
 import Tasks from './Tasks';
 import Diary from './Diary';
 import EntryView from './EntryView';
 import TagsList from './TagsList';
+import Weight from './Weight';
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -16,7 +17,8 @@ const routing = (
         <Route exact path="/tasks" component={Tasks} />
         <Route path="/diary" component={Diary} />
         <Route path="/tags" component={TagsList} />
-        <Route path="/*.html" component={EntryView} />
+        <Route path="/weight" component={Weight} />
+        <Route path="/entry/*" component={EntryView} />
       </div>
     </Router>
   )
