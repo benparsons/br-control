@@ -20,8 +20,6 @@ class EntryView extends Component {
     var url = `http://localhost:1428/get/${out[1]}`;
     axios.get(url)
       .then(res => {
-        
-        console.log(res.data);
         this.setState({
           entry: res.data
         });

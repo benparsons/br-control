@@ -13,7 +13,26 @@ function doOpen(name) {
 
   
 
-class Entry extends Component {
+    class Entry extends Component {  constructor(props) {
+      super(props);
+      
+      this.state = {
+        entryBody: "",
+        fm: ""
+      };
+    }
+
+    componentDidUpdate(prevProps) {
+      if (prevProps.raw !== this.props.raw) {
+        console.log("raw change")
+        var fmEnd = this.props.raw.indexOf("\n---") + 4;
+        this.setState({
+          entryBody: this.props.raw.substring(fmEnd).trim(),
+          fm: this.props.raw.substring(0, fmEnd).trim()
+        })
+        console.log()
+      }
+    }
 
     handleChange = value => {
       this.setState({ mdeValue: value });
@@ -26,7 +45,7 @@ class Entry extends Component {
                 <div dangerouslySetInnerHTML={{__html: this.props.html}}></div>
                 <SimpleMDE
                   onChange={this.handleChange}
-                  value={this.props.raw}
+                  value={this.state.entryBody}
                   />;
             </div>
             <div className="leftDiv">
@@ -39,7 +58,11 @@ class Entry extends Component {
                   </ul>
                 <hr />
                 <h2>FM</h2>
-                <pre>{JSON.stringify(this.props.fm, null, 2)}</pre>
+                <textarea
+                  cols="80" rows="15"
+                  value={this.state.fm}
+                  onChange={(val) => console.log(val)}>
+                </textarea>
                 <hr />
                 <button onClick={() => {doOpen(this.props.name)}}>Open</button>
             </div>
