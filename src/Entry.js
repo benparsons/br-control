@@ -17,52 +17,51 @@ function doOpen(name) {
       super(props);
       
       this.state = {
-        entryBody: "",
-        fm: ""
+        showPreview: false
       };
     }
 
     componentDidUpdate(prevProps) {
-      if (prevProps.raw !== this.props.raw) {
-        console.log("raw change")
-        var fmEnd = this.props.raw.indexOf("\n---") + 4;
-        this.setState({
-          entryBody: this.props.raw.substring(fmEnd).trim(),
-          fm: this.props.raw.substring(0, fmEnd).trim()
-        })
-        console.log()
-      }
+
     }
 
     handleChange = value => {
       this.setState({ mdeValue: value });
     };
+    togglePreview = () => {
+      this.setState({showPreview: !this.state.showPreview})
+    };
     render() {
-        
+        var fmEnd = this.props.raw.indexOf("\n---") + 4;
+        var entryBody = this.props.raw.substring(fmEnd).trim()
+        var fm = this.props.raw.substring(0, fmEnd).trim()
         return (
           <div>
             <div className="leftDiv">
-                <div dangerouslySetInnerHTML={{__html: this.props.html}}></div>
                 <SimpleMDE
                   onChange={this.handleChange}
-                  value={this.state.entryBody}
-                  />;
+                  value={entryBody}
+                  />
             </div>
             <div className="leftDiv">
                 <h2>Missing</h2>
                 <ul>
                 {this.props.missing && 
-                this.props.missing.map(item => {
-                return (<li key={'item_' + item}>{item}</li>)})
+                this.props.missing.map((item, i) => {
+                return (<li key={'item_' + i + "_" + this.props.title + "_" + item}>{item}</li>)})
                   }
                   </ul>
                 <hr />
                 <h2>FM</h2>
                 <textarea
                   cols="80" rows="15"
-                  value={this.state.fm}
+                  value={fm}
                   onChange={(val) => console.log(val)}>
                 </textarea>
+                <hr />
+                <h2>HTML</h2>
+                <button onClick={this.togglePreview}>{this.state.showPreview ? "Hide Preview" : "Show Preview"}</button>
+                <div hidden={!this.state.showPreview} dangerouslySetInnerHTML={{__html: this.props.html}}></div>
                 <hr />
                 <button onClick={() => {doOpen(this.props.name)}}>Open</button>
             </div>

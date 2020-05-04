@@ -45,6 +45,7 @@ class DiaryList extends Component {
                 missing={entry.missing}
                 fm={entry.fm}
                 name={entry.name}
+                raw={entry.raw}
                 />
             );
           });
@@ -75,8 +76,8 @@ class Diary extends Component {
 
   componentDidMount() {
     this.setState({
-      startDate: new Date(2019, 0, 1),
-      endDate: new Date(2019, 11, 31)
+      startDate: new Date(2020, 0, 1),
+      endDate: new Date(2020, 11, 31)
     });
   }
 

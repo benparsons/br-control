@@ -7,7 +7,10 @@ class EntryView extends Component {
     super(props);
     
     this.state = {
-      entry: {}
+      entry: {
+        raw: "",
+        fm: ""
+      }
     };
   }
 
