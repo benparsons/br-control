@@ -44,6 +44,13 @@ function doOpen(name) {
                   />
             </div>
             <div className="leftDiv">
+                <h2>Tags</h2>
+                <ul>
+                  {this.props.fm && this.props.fm.tags &&
+                  this.props.fm.tags.map((item, i) => {
+                    return(<li key={'item_' + i + "_" + this.props.title + "_" + item}>{item}</li>)
+                  })}
+                </ul>
                 <h2>Missing</h2>
                 <ul>
                 {this.props.missing && 
