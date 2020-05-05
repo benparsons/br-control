@@ -4,6 +4,7 @@ import './Diary.css';
 import Entry from './Entry.js';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from 'moment';
 
 class DiaryList extends Component {
     constructor(props) {
@@ -76,8 +77,8 @@ class Diary extends Component {
 
   componentDidMount() {
     this.setState({
-      startDate: new Date(2020, 0, 1),
-      endDate: new Date(2020, 11, 31)
+      startDate: new Date(moment().add(-7, "days")),
+      endDate: new Date(moment())
     });
   }
 
