@@ -17,7 +17,8 @@ function doOpen(name) {
       super(props);
       
       this.state = {
-        showPreview: false
+        showPreview: false,
+        closed: this.props.closed
       };
     }
 
@@ -37,40 +38,45 @@ function doOpen(name) {
         var fm = this.props.raw.substring(0, fmEnd).trim()
         return (
           <div>
-            <div className="leftDiv">
-                <SimpleMDE
-                  onChange={this.handleChange}
-                  value={entryBody}
-                  />
-            </div>
-            <div className="leftDiv">
-                <h2>Tags</h2>
-                <ul>
-                  {this.props.fm && this.props.fm.tags &&
-                  this.props.fm.tags.map((item, i) => {
-                    return(<li key={'item_' + i + "_" + this.props.title + "_" + item}>{item}</li>)
-                  })}
-                </ul>
-                <h2>Missing</h2>
-                <ul>
-                {this.props.missing && 
-                this.props.missing.map((item, i) => {
-                return (<li key={'item_' + i + "_" + this.props.title + "_" + item}>{item}</li>)})
-                  }
+            <div
+              onClick={()=> this.setState({closed: !this.state.closed})}
+            >{this.props.fm.date}{this.props.fm.summary}</div>
+            <div hidden={this.state.closed}>
+              <div className="leftDiv">
+                  <SimpleMDE
+                    onChange={this.handleChange}
+                    value={entryBody}
+                    />
+              </div>
+              <div className="leftDiv">
+                  <h2>Tags</h2>
+                  <ul>
+                    {this.props.fm && this.props.fm.tags &&
+                    this.props.fm.tags.map((item, i) => {
+                      return(<li key={'item_' + i + "_" + this.props.title + "_" + item}>{item}</li>)
+                    })}
                   </ul>
-                <hr />
-                <h2>FM</h2>
-                <textarea
-                  cols="80" rows="15"
-                  value={fm}
-                  onChange={(val) => console.log(val)}>
-                </textarea>
-                <hr />
-                <h2>HTML</h2>
-                <button onClick={this.togglePreview}>{this.state.showPreview ? "Hide Preview" : "Show Preview"}</button>
-                <div hidden={!this.state.showPreview} dangerouslySetInnerHTML={{__html: this.props.html}}></div>
-                <hr />
-                <button onClick={() => {doOpen(this.props.name)}}>Open</button>
+                  <h2>Missing</h2>
+                  <ul>
+                  {this.props.missing && 
+                  this.props.missing.map((item, i) => {
+                  return (<li key={'item_' + i + "_" + this.props.title + "_" + item}>{item}</li>)})
+                    }
+                    </ul>
+                  <hr />
+                  <h2>FM</h2>
+                  <textarea
+                    cols="80" rows="15"
+                    value={fm}
+                    onChange={(val) => console.log(val)}>
+                  </textarea>
+                  <hr />
+                  <h2>HTML</h2>
+                  <button onClick={this.togglePreview}>{this.state.showPreview ? "Hide Preview" : "Show Preview"}</button>
+                  <div hidden={!this.state.showPreview} dangerouslySetInnerHTML={{__html: this.props.html}}></div>
+                  <hr />
+                  <button onClick={() => {doOpen(this.props.name)}}>Open</button>
+              </div>
             </div>
             <br clear="all"/>
             <hr />

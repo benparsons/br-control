@@ -47,6 +47,7 @@ class DiaryList extends Component {
                 fm={entry.fm}
                 name={entry.name}
                 raw={entry.raw}
+                closed={true}
                 />
             );
           });
