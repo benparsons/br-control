@@ -36,7 +36,9 @@ class DailyTaskList extends Component {
   render() {
     const lines = this.state.tasks.map((task, index) => {
       return (
-        <tr key={task.name}>{task.title}</tr>
+        <tr key={task.name}>
+          <td>{task.title}</td>
+        </tr>
       );
     });
     return (
@@ -90,7 +92,7 @@ class App extends Component {
           <div style={{"float":"left"}}><DailyTaskList /></div>
           {tagPanels.map(tag => {
             return(
-              <div style={{"float":"left"}}><SingleTagPanel tag={tag} /></div>
+              <div key={tag} style={{"float":"left"}}><SingleTagPanel tag={tag} /></div>
             )
           })}
         </div>

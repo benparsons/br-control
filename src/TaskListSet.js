@@ -33,8 +33,9 @@ class TaskListSet extends Component {
             this.setState({ filterTag: "" })
           }}>Clear Tag Filter</button>
           <div>{tagButtons}</div>
-          {this.props.taskLists.map((taskList) => {
+          {this.props.taskLists.map((taskList, i) => {
             return(<TaskList
+              key={"taskList_" + i}
               addTag={(tag) => this.addTag(tag)}
               filterTag={this.state.filterTag}
               statuses={taskList.statuses}

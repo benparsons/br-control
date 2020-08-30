@@ -21,7 +21,9 @@ class SingleTagPanel extends Component {
     render() {
       const lines = this.state.tasks.map((task, index) => {
         return (
-          <tr key={task.name}>{task.title}</tr>
+          <tr key={task.name}>
+            <td>{task.title}</td>
+          </tr>
         );
       });
       return (
