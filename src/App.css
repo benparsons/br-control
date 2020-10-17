@@ -38,3 +38,7 @@ div.tasklist-block {
 tr.overdue {
   font-weight: bold;
 }
+
+tr.taskrow:hover {
+  background-color: blanchedalmond;
+}
