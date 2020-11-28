@@ -29,7 +29,7 @@ class SingleTagPanel extends Component {
       });
       return (
         <div className="tasklist-block">
-          <h2>{this.props.tag}</h2>
+          <h2><a href={"/tag/" + this.props.tag}>{this.props.tag}</a></h2>
           <table><tbody>{lines}</tbody></table>
         </div>
       )

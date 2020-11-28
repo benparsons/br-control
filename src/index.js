@@ -7,6 +7,7 @@ import Tasks from './Tasks';
 import Diary from './Diary';
 import EntryView from './EntryView';
 import TagsList from './TagsList';
+import Tag from './Tag';
 import Weight from './Weight';
 import * as serviceWorker from './serviceWorker';
 
@@ -17,6 +18,7 @@ const routing = (
         <Route exact path="/tasks" component={Tasks} />
         <Route path="/diary" component={Diary} />
         <Route path="/tags" component={TagsList} />
+        <Route path="/tag/*" component={Tag} />
         <Route path="/weight" component={Weight} />
         <Route path="/entry/*" component={EntryView} />
       </div>
