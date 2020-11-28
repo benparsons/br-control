@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ProjectBlock } from './ProjectBlock';
 import TaskListSet from './TaskListSet';
 import SingleTagPanel from './SingleTagPanel';
+import config from "./config.json";
 
 
 export function doOpen(name) {
@@ -13,8 +14,6 @@ export function doOpen(name) {
       console.log(res);
     });
 }
-
-
 
 class DailyTaskList extends Component {
   constructor(props) {
@@ -84,8 +83,7 @@ class App extends Component {
     const taskLists = [];
     taskLists.push({statuses:"active,dormant", datemode:"due", count:"60"});
     taskLists.push({statuses:"active", datemode:"undated", count:"60"});
-    const tagPanels = ["mantra", "work-focus", "before-2021-travel",
-      "tech-skills-for-remote-work",  "mushroom-app", "2020-goals", "flat-7-revival"];
+    const tagPanels = config.homepage.tagPanels;
     return (
       <div>
         <div>

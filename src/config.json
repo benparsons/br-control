@@ -1,0 +1,7 @@
+{
+    "apiRoot": "http://localhost:1428",
+    "homepage": {
+        "tagPanels": ["mantra", "before-2021-travel",
+            "tech-skills-for-remote-work",  "mushroom-app", "2020-goals", "flat-7-revival"]
+    }
+}
