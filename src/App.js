@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ProjectBlock } from './ProjectBlock';
 import TaskListSet from './TaskListSet';
 import SingleTagPanel from './SingleTagPanel';
+import CreateTaskPanel from './CreateTaskPanel';
 import config from "./config.json";
 
 
@@ -87,6 +88,7 @@ class App extends Component {
     return (
       <div>
         <div>
+          <div style={{"float":"left"}}><CreateTaskPanel /></div>
           <div style={{"float":"left"}}><DailyTaskList /></div>
           {tagPanels.map(tag => {
             return(
