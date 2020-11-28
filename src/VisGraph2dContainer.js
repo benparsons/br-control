@@ -5,7 +5,7 @@ import VisGraph2d from "react-visjs-graph2d"
 
 const example_one = {
   options: {
-    height: "380px",
+    height: "600px",
   },
   
   customTimes: {
