@@ -19,7 +19,8 @@ class SingleTagPanel extends Component {
         });
     }
     render() {
-      const lines = this.state.tasks.map((task, index) => {
+      let tasks = this.state.tasks.filter(t => ! t.task || t.task.status == "active");
+      const lines = tasks.map((task, index) => {
         return (
           <tr key={task.name}>
             <td>{task.title}</td>
