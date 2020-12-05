@@ -5,7 +5,9 @@
   "dependencies": {
     "@babel/helper-regex": "^7.10.5",
     "axios": "^0.21.0",
+    "body-parser": "^1.19.0",
     "easymde": "^2.12.1",
+    "express": "^4.17.1",
     "locale": "^0.1.0",
     "moment": "2.29.1",
     "react": "^17.0.1",
@@ -16,7 +18,8 @@
     "react-simplemde-editor": "^4.1.0",
     "react-visjs-graph2d": "^1.0.1",
     "vis-data": "^7.1.1",
-    "vis-timeline": "^7.3.4"
+    "vis-timeline": "^7.3.4",
+    "markdown-wiki": "git+https://github.com/benparsons/markdown-wiki.git"
   },
   "scripts": {
     "start": "PORT=3006 react-scripts start",
