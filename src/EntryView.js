@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Entry from './Entry.js';
+import { doOpen } from './App';
 
 class EntryView extends Component {
   constructor(props) {
@@ -10,7 +11,8 @@ class EntryView extends Component {
       entry: {
         raw: "",
         fm: ""
-      }
+      },
+      path: ""
     };
   }
 
@@ -19,6 +21,9 @@ class EntryView extends Component {
     const regex = /\/entry\/(.*)$/;
     const str = this.props.location.pathname;
     const out = str.match(regex);
+    this.setState({
+      path: out[1]
+    });
 
     var url = `http://localhost:1428/get/${out[1]}`;
     axios.get(url)
@@ -31,14 +36,22 @@ class EntryView extends Component {
   render() {
     
     return (
-        <div>
+      <div>
+        {this.state.entry.raw &&
+          <div>
             <Entry
               html={this.state.entry.html}
               missing={this.state.entry.missing}
               fm={this.state.entry.fm}
               raw={this.state.entry.raw}
-              />
-        </div>);
+            />
+          </div>
+        }
+        {!this.state.entry.raw &&
+          <div>{this.state.path} not found.&nbsp;
+          <button>Create {this.state.path}</button></div>
+        }
+      </div>);
   }
 }
 
