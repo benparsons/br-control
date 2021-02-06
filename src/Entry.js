@@ -49,20 +49,25 @@ function doOpen(name) {
                     />
               </div>
               <div className="leftDiv">
-                  <h2>Tags</h2>
-                  <ul>
-                    {this.props.fm && this.props.fm.tags &&
+                <h2>Tags</h2>
+                <ul>
+                  {this.props.fm && this.props.fm.tags &&
                     this.props.fm.tags.map((item, i) => {
-                      return(<li key={'item_' + i + "_" + this.props.title + "_" + item}>{item}</li>)
+                      return (<li key={'item_' + i + "_" + this.props.title + "_" + item}>{item}</li>)
                     })}
-                  </ul>
-                  <h2>Missing</h2>
-                  <ul>
-                  {this.props.missing && 
-                  this.props.missing.map((item, i) => {
-                  return (<li key={'item_' + i + "_" + this.props.title + "_" + item}>{item}</li>)})
-                    }
-                    </ul>
+                </ul>
+                <h2>Missing</h2>
+                <ul>
+                  {
+                    this.props.missing && this.props.missing.map((item, i) => {
+                      return (
+                        <li key={'item_' + i + "_" + this.props.title + "_" + item}>
+                          <a href={"/entry/" + item}>{item}</a>
+                        </li>
+                      )
+                    })
+                  }
+                </ul>
                   <hr />
                   <h2>FM</h2>
                   <textarea

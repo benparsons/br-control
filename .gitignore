@@ -9,6 +9,11 @@
 # production
 /build
 
+# server
+/server/app
+/server/.cache
+/server/config.json
+
 # misc
 .DS_Store
 .env.local
