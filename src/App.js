@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
-import { ProjectBlock } from './ProjectBlock';
 import TaskListSet from './TaskListSet';
 import SingleTagPanel from './SingleTagPanel';
 import CreateTaskPanel from './CreateTaskPanel';
@@ -50,33 +49,6 @@ class DailyTaskList extends Component {
   }
 }
 
-class ProjectsList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      projects: {}
-    };
-  }
-  componentDidMount() {
-    var url = `http://localhost:1428/projects/`;
-    axios.get(url)
-      .then(res => {
-
-        this.setState({
-          projects: res.data
-        });
-      });
-  }
-  render() {
-    var projects = [];
-    Object.keys(this.state.projects).forEach(name => {
-      projects.push(<ProjectBlock key={name} name={name} tasks={this.state.projects[name]} />);
-    });
-    return <div className="tasklist-block">{projects}</div>
-  }
-}
-
 
 class App extends Component {
 
@@ -98,7 +70,6 @@ class App extends Component {
         </div>
         
         <TaskListSet taskLists={taskLists} />
-        <ProjectsList />
       </div>
     );
   }
