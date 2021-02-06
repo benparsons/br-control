@@ -12,7 +12,9 @@ const chokidar = require('chokidar');
 const bodyParser = require('body-parser');
 const config = require('./config.json');
 app.use(bodyParser.json());
-app.use(express.static('app'))
+app.use(express.static('app'));
+let queries = {};
+queries.tasks = require('./queries/tasks.js');
 
 var wikiContent, pages, projects, tags;
 var dirty = true;
@@ -35,7 +37,7 @@ setInterval(loadWiki, 1000);
 
 var ready = false;
 const watcher = chokidar.watch(config["wiki-path"]).on('all', (event, path) => {
-    console.log("Watching for changes on " + config["wiki-path"])
+    //console.log("Watching for changes on " + config["wiki-path"])
     if (! path.endsWith(".md")) return;
     if (ready) {
         console.log(event, path);
@@ -50,31 +52,7 @@ watcher.on('ready', () => {
 });
 
 app.get('/tasks/:statuses/:datemode/:count', function(req, res) {
-    const statuses = req.params.statuses.split(',');
-    var tasks = pages.filter(page => 
-        //page.category === req.params.category && 
-        page.fm && 
-        page.fm.task && 
-        statuses.indexOf(page.fm.task.status) !== -1);
-    if (req.params.datemode === "undated") {
-        tasks = tasks.filter(task => !task.fm.task.due)
-    } else if (req.params.datemode === "due") {
-        tasks = tasks.filter(task => 
-            task.fm.task.due &&
-            moment(task.fm.task.due) < moment()
-        );
-    } else if (req.params.datemode === "future") {
-        tasks = tasks.filter(task => 
-            task.fm.task.due &&
-            moment(task.fm.task.due) >= moment()
-        );
-    }
-    tasks.sort(dateDescendingUndefinedLast);
-    tasks = tasks.slice(0, req.params.count);
-    for (var i = 0; i < tasks.length; i++) {
-        //delete tasks[i].raw;
-        delete tasks[i].tokens;
-    }
+    let tasks = queries.tasks.getTasks(req, res, pages);
     console.log("send tasks");
     res.send(tasks);
 });
@@ -217,13 +195,3 @@ app.post('/create-entry', function(req, res) {
 app.listen(1428, function () {  
     console.log('Example app listening on port 1428!');  
 });
-
-function dateDescendingUndefinedLast (a, b) {
-    if (! a.fm || ! a.fm.task) {
-        console.log(a.name);
-        process.exit(1);
-    }
-    if (! a.fm.task.due) return 1;
-    if (! b.fm.task.due) return -1;
-    return a.fm.task.due - b.fm.task.due;
-}
