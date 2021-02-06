@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TaskListSet from './TaskListSet';
+import EntryListSet from './EntryListSet';
 
 class Tasks extends Component {
 
@@ -10,7 +10,7 @@ class Tasks extends Component {
         taskLists.push({statuses:"active,dormant", datemode:"future", count:"60"});
         taskLists.push({statuses:"dormant", datemode:"undated", count:"60"});
         taskLists.push({statuses:"someday", datemode:"all", count:"60"});
-        return (<TaskListSet taskLists={taskLists} />)
+        return (<EntryListSet taskLists={taskLists} />)
     }
 }
 

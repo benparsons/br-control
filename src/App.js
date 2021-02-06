@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
-import TaskListSet from './TaskListSet';
+import EntryListSet from './EntryListSet';
 import SingleTagPanel from './SingleTagPanel';
 import CreateTaskPanel from './CreateTaskPanel';
 import config from "./config.json";
@@ -69,7 +69,7 @@ class App extends Component {
           })}
         </div>
         
-        <TaskListSet taskLists={taskLists} />
+        <EntryListSet taskLists={taskLists} />
       </div>
     );
   }

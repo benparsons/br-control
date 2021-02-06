@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import { TaskRow } from './TaskRow';
 
-class TaskList extends Component {
+class EntryList extends Component {
     constructor(props) {
         super(props);
 
@@ -51,4 +51,4 @@ class TaskList extends Component {
     }
 }
 
-export default TaskList;
+export default EntryList;

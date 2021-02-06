@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import TaskList from './TaskList';
+import EntryList from './EntryList';
 
-class TaskListSet extends Component {
+class EntryListSet extends Component {
     constructor(props) {
       super(props);
   
@@ -34,7 +34,7 @@ class TaskListSet extends Component {
           }}>Clear Tag Filter</button>
           <div>{tagButtons}</div>
           {this.props.taskLists.map((taskList, i) => {
-            return(<TaskList
+            return(<EntryList
               key={"taskList_" + i}
               addTag={(tag) => this.addTag(tag)}
               filterTag={this.state.filterTag}
@@ -47,4 +47,4 @@ class TaskListSet extends Component {
     }
 }
 
-export default TaskListSet;
+export default EntryListSet;
