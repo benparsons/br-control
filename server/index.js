@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use(express.static('app'));
 let queries = {};
 queries.tasks = require('./queries/tasks.js');
+queries.entries = require('./queries/entries.js');
 
 var wikiContent, pages, projects, tags;
 var dirty = true;
@@ -55,6 +56,15 @@ app.get('/tasks/:statuses/:datemode/:count', function(req, res) {
     let tasks = queries.tasks.getTasks(req, res, pages);
     console.log("send tasks");
     res.send(tasks);
+});
+
+app.get('/api/1/entries/', function(req, res) {
+    let query = {};
+    query.tags = req.query.tags ? req.query.tags.split(',') : null;
+    query.type = req.query.type ? req.query.type : null;
+    console.log(query);
+    let entries = queries.entries.getEntries(query, pages);
+    res.send(entries);
 });
 
 app.get('/daily-tasks', function(req, res) {
