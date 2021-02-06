@@ -34,7 +34,8 @@ setInterval(loadWiki, 1000);
 
 
 var ready = false;
-const watcher = chokidar.watch('.').on('all', (event, path) => {
+const watcher = chokidar.watch(config["wiki-path"]).on('all', (event, path) => {
+    console.log("Watching for changes on " + config["wiki-path"])
     if (! path.endsWith(".md")) return;
     if (ready) {
         console.log(event, path);
