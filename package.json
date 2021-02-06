@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/helper-regex": "^7.10.5",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "easymde": "^2.12.1",
     "express": "^4.17.1",
