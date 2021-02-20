@@ -13,7 +13,7 @@ class EntryList extends Component {
     }
     componentDidMount() {
         var url = `http://localhost:1428/tasks/${this.props.statuses}/${this.props.datemode}/${this.props.count}`;
-        axios.get(url)
+        axios.get(url, { params: { tags: this.props.tags }})
             .then(res => {
                 this.setState({
                     tasks: res.data

@@ -40,7 +40,8 @@ class EntryListSet extends Component {
               filterTag={this.state.filterTag}
               statuses={taskList.statuses}
               datemode={taskList.datemode}
-              count={taskList.count}  />)
+              count={taskList.count}
+              tags={taskList.tags}  />)
           })}
         </div>
         )

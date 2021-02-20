@@ -1,7 +1,9 @@
 var moment = require('moment');
 
 function getTasks(req, res, pages) {
-    console.log("getTasks()");
+    console.log("getTasks() " + 
+        JSON.stringify(req.params) + " " + 
+        JSON.stringify(req.query));
     const statuses = req.params.statuses.split(',');
     var tasks = pages.filter(page => 
         //page.category === req.params.category && 
@@ -21,6 +23,12 @@ function getTasks(req, res, pages) {
             moment(task.fm.task.due) >= moment()
         );
     }
+
+    if (req.query.tags) {
+        tasks = tasks.filter(e => e.fm && e.fm.tags && e.fm.tags.some && 
+            e.fm.tags.some(a => req.query.tags.includes(a)));
+    }
+
     tasks.sort(dateDescendingUndefinedLast);
     tasks = tasks.slice(0, req.params.count);
     for (var i = 0; i < tasks.length; i++) {

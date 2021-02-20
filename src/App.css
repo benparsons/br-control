@@ -35,8 +35,12 @@ div.tasklist-block {
   float: left;
 }
 
-tr.overdue {
+tr.task-overdue {
   font-weight: bold;
+}
+
+tr.task-done {
+  text-decoration: line-through;
 }
 
 tr.taskrow:hover {

@@ -19,7 +19,9 @@ export class TaskRow extends Component {
       });
   }
   render() {
-    const taskClass = "taskrow " + (moment().isAfter(this.props.due) ? "overdue" : "");
+    let taskClass = "taskrow";
+    if (moment().isAfter(this.props.due)) taskClass += " task-overdue";
+    if (this.props.status === "done") taskClass += " task-done";
     return (<>
       {!this.props.tags || this.props.filterTag === "" || this.props.tags.includes(this.props.filterTag) ?
         <tr className={taskClass}>
