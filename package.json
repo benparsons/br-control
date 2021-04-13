@@ -18,7 +18,7 @@
     "react-simplemde-editor": "^4.1.0",
     "react-visjs-graph2d": "^1.0.1",
     "vis-data": "^7.1.1",
-    "vis-timeline": "^7.3.4",
+    "vis-timeline": "^7.4.4",
     "markdown-wiki": "git+https://github.com/benparsons/markdown-wiki.git"
   },
   "scripts": {
